@@ -10,3 +10,4 @@ export { CustomersFacade } from './lib/state/customers/customers.facade';
 
 // expose project state to other modules to allow imports
 export { ProjectsState } from './lib/state/projects/projects.reducer'
+export { SelectProject, CreateProject, UpdateProject, DeleteProject } from './lib/state/projects/projects.actions'

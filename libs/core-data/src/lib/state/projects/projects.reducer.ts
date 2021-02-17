@@ -1,4 +1,5 @@
 import { Project } from './../../projects/project.model';
+import { ProjectsActionTypes } from './projects.actions';
 
 const initialProjects: Project[] = [
   {
@@ -55,25 +56,25 @@ export function projectsReducer(
   action
 ): ProjectsState {
   switch (action.type) {
-    case 'select':
+    case ProjectsActionTypes.SelectProject:
       // delegate to standalone functions.This avoids nested logic
       return {
         selectedProjectedId: action.payLoad,
         projects: state.projects
       };
-    case 'create':
+    case ProjectsActionTypes.CreateProject:
       // delegate to standalone functions.This avoids nested logic
       return {
         projects: createProject(state.projects, action.payLoad),
         selectedProjectedId: state.selectedProjectedId
       };
-    case 'update':
+    case ProjectsActionTypes.UpdateProject:
       // delegate to standalone functions.This avoids nested logic
       return {
         projects: updateProject(state.projects, action.payLoad),
         selectedProjectedId: state.selectedProjectedId
       };
-    case 'delete':
+    case ProjectsActionTypes.DeleteProject:
       // delegate to standalone functions.This avoids nested logic
       return {
         projects: deleteProject(state.projects, action.payLoad),
