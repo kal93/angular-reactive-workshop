@@ -5,6 +5,7 @@ import {
   Customer,
   CustomersService,
   DeleteProject,
+  initialProjects,
   NotificationsService,
   Project,
   ProjectsService,
@@ -12,6 +13,7 @@ import {
   SelectProject,
   UpdateProject
 } from '@workshop/core-data';
+import { LoadProjects } from 'libs/core-data/src/lib/state/projects/projects.actions';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -42,7 +44,8 @@ export class ProjectsComponent implements OnInit {
   ) {
     this.projects$ = store.pipe(
       select('projects'),
-      map((projetsState: ProjectsState) => projetsState.projects)
+      map(data => data.entities),
+      map(data => Object.keys(data).map(k => data[k]))
     );
   }
 
@@ -70,7 +73,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   getProjects() {
-    // this.projects$ = this.projectsService.all();
+    this.store.dispatch(new LoadProjects(initialProjects))
   }
 
   saveProject(project) {

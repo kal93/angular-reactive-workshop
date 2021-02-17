@@ -1,7 +1,8 @@
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Project } from './../../projects/project.model';
 import { ProjectsActionTypes } from './projects.actions';
 
-const initialProjects: Project[] = [
+export const initialProjects: Project[] = [
   {
     id: '1',
     title: 'Project One',
@@ -37,18 +38,19 @@ const deleteProject = (projects, project) =>
   projects.filter(w => project.id !== w.id);
 
 // 01 - Define the shape of my state, State for project feature
-export interface ProjectsState {
-  projects: Project[];
-  // don't track the entire project object, if I were to select/store a selected project then we have state in two different places
-  // so keep a reference selected project via its id
+export interface ProjectsState extends EntityState<Project> {
   selectedProjectedId: string | null;
 }
 
+// create entity adapter
+export const adapter : EntityAdapter<Project> = createEntityAdapter<Project>();
+
 // 02 - Define the initial state
-export const intialState: ProjectsState = {
-  projects: initialProjects,
+
+export const intialState: ProjectsState = adapter.getInitialState({
   selectedProjectedId: null
-};
+});
+
 
 // 03 - Build the most simplest reducer. Every operation that you do in reduce needs to be immutable.
 export function projectsReducer(
@@ -56,30 +58,21 @@ export function projectsReducer(
   action
 ): ProjectsState {
   switch (action.type) {
+    case ProjectsActionTypes.LoadProject:
+      // delegate to standalone functions.This avoids nested logic
+      return adapter.addMany(action.payLoad, state);
     case ProjectsActionTypes.SelectProject:
       // delegate to standalone functions.This avoids nested logic
-      return {
-        selectedProjectedId: action.payLoad,
-        projects: state.projects
-      };
+      return Object.assign({}, state, { selectedProjectId: action.payLoad})
     case ProjectsActionTypes.CreateProject:
       // delegate to standalone functions.This avoids nested logic
-      return {
-        projects: createProject(state.projects, action.payLoad),
-        selectedProjectedId: state.selectedProjectedId
-      };
+      return adapter.addOne(action.payLoad, state);
     case ProjectsActionTypes.UpdateProject:
       // delegate to standalone functions.This avoids nested logic
-      return {
-        projects: updateProject(state.projects, action.payLoad),
-        selectedProjectedId: state.selectedProjectedId
-      };
+      return adapter.updateOne(action.payLoad, state);
     case ProjectsActionTypes.DeleteProject:
       // delegate to standalone functions.This avoids nested logic
-      return {
-        projects: deleteProject(state.projects, action.payLoad),
-        selectedProjectedId: state.selectedProjectedId
-      };
+      return adapter.removeOne(action.payLoad, state);
     default:
       return state;
   }
