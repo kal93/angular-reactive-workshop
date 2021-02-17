@@ -135,6 +135,30 @@
       "targetDate": "2018-10-26T07:00:00.000Z",
       "completionDate": null,
       "customerId": "1"
+    },
+    {
+      "id": "bX8jRpd",
+      "title": "Project Five",
+      "details": "This is a sample project",
+      "percentComplete": 22,
+      "approved": false,
+      "customerId": "3"
+    },
+    {
+      "id": "A89uxzU",
+      "title": "Project Six",
+      "details": "This is a sample project",
+      "percentComplete": 22,
+      "approved": false,
+      "customerId": "3"
+    },
+    {
+      "id": "L8Zb1DM",
+      "title": "sss",
+      "details": "ss",
+      "percentComplete": 0,
+      "approved": false,
+      "customerId": "6"
     }
   ]
 }

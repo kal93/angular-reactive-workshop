@@ -8,6 +8,6 @@ export class NotificationsService {
   }
 
   emit(notification) {
-    this.snackbar.open(notification, 'OK', { duration: 3000 });
+    this.snackbar.open(notification, 'OK', { duration: 3000, verticalPosition: 'top', horizontalPosition: 'end' });
   }
 }

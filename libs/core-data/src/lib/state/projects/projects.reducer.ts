@@ -58,19 +58,19 @@ export function projectsReducer(
   action
 ): ProjectsState {
   switch (action.type) {
-    case ProjectsActionTypes.LoadProject:
+    case ProjectsActionTypes.ProjectsLoaded:
       // delegate to standalone functions.This avoids nested logic
       return adapter.addMany(action.payLoad, state);
     case ProjectsActionTypes.SelectProject:
       // delegate to standalone functions.This avoids nested logic
       return Object.assign({}, state, { selectedProjectId: action.payLoad})
-    case ProjectsActionTypes.CreateProject:
+    case ProjectsActionTypes.ProjectCreated:
       // delegate to standalone functions.This avoids nested logic
       return adapter.addOne(action.payLoad, state);
     case ProjectsActionTypes.UpdateProject:
       // delegate to standalone functions.This avoids nested logic
       return adapter.updateOne(action.payLoad, state);
-    case ProjectsActionTypes.DeleteProject:
+    case ProjectsActionTypes.DeletedProject:
       // delegate to standalone functions.This avoids nested logic
       return adapter.removeOne(action.payLoad, state);
     default:

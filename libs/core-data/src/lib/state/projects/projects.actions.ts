@@ -2,35 +2,51 @@ import { Action } from '@ngrx/store';
 import { Project } from '../../projects/project.model';
 
 export enum ProjectsActionTypes {
-  LoadProject = '[Projects] Loaded',
-
-  SelectProject = '[Projects] Selected',
-  CreateProject = '[Projects] Create',
-  UpdateProject = '[Projects] Updated',
-  DeleteProject = '[Projects] Deleted'
+  LoadProject = '[Projects] Load Data',
+  ProjectsLoaded = '[Projects] Loaded',
+  SelectProject = '[Projects] Selecte Project',
+  CreateProject = '[Projects] Create Project',
+  ProjectCreated = '[Projects] Created',
+  UpdateProject = '[Projects] Update Project',
+  DeleteProject = '[Projects] Delete Project',
+  DeletedProject = '[Projects] Deleted'
 }
 
 export class CreateProject implements Action {
   readonly type = ProjectsActionTypes.CreateProject;
-  constructor(private payLoad: Project) {}
+  constructor(public payLoad: Project) {}
+}
+
+export class ProjectCreated implements Action {
+  readonly type = ProjectsActionTypes.ProjectCreated;
+  constructor(public payLoad: Project) {}
 }
 
 export class UpdateProject implements Action {
   readonly type = ProjectsActionTypes.UpdateProject;
-  constructor(private payLoad: Project) {}
+  constructor(public payLoad: Project) {}
 }
 export class DeleteProject implements Action {
   readonly type = ProjectsActionTypes.DeleteProject;
-  constructor(private payLoad: Project) {}
+  constructor(public payLoad: Project) {}
+}
+export class ProjectDeleted implements Action {
+  readonly type = ProjectsActionTypes.DeleteProject;
+  constructor(public payLoad: Project) {}
 }
 export class SelectProject implements Action {
   readonly type = ProjectsActionTypes.SelectProject;
-  constructor(private payLoad: Project) {}
+  constructor(public payLoad: Project) {}
 }
 
 export class LoadProjects implements Action {
   readonly type = ProjectsActionTypes.LoadProject;
-  constructor(private payLoad: Project[]) {}
+  // constructor(public payLoad: Project[]) {}
+}
+
+export class ProjectsLoaded implements Action {
+  readonly type = ProjectsActionTypes.ProjectsLoaded;
+  constructor(public payLoad: Project[]) {}
 }
 
 export type ProjectsAction =
@@ -38,4 +54,8 @@ export type ProjectsAction =
   | SelectProject
   | CreateProject
   | UpdateProject
-  | DeleteProject;
+  | DeleteProject
+  | DeleteProject
+  |ProjectsLoaded
+  |ProjectCreated
+  ;
