@@ -77,3 +77,12 @@ export function projectsReducer(
       return state;
   }
 }
+
+// build out low level selectors (composable queries or functions)
+export const getSelectedProjectId = (state: ProjectsState) => state.selectedProjectedId;
+
+const { selectIds, selectEntities, selectAll } = adapter.getSelectors();
+export const selectAllProjects = selectAll;
+export const selectProjectIds = selectIds;
+export const selectProjectEntities = selectEntities;
+
