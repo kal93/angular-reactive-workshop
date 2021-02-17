@@ -28,7 +28,58 @@ const initialProjects: Project[] = [
 ];
 
 const createProject = (projects, project) => [...projects, project];
-const updateProject = (projects, project) => projects.map(p => {
-  return p.id === project.id ? Object.assign({}, project) : p;
-});
-const deleteProject = (projects, project) => projects.filter(w => project.id !== w.id);
+const updateProject = (projects, project) =>
+  projects.map(p => {
+    return p.id === project.id ? Object.assign({}, project) : p;
+  });
+const deleteProject = (projects, project) =>
+  projects.filter(w => project.id !== w.id);
+
+// 01 - Define the shape of my state, State for project feature
+export interface ProjectsState {
+  projects: Project[];
+  // don't track the entire project object, if I were to select/store a selected project then we have state in two different places
+  // so keep a reference selected project via its id
+  selectedProjectedId: string | null;
+}
+
+// 02 - Define the initial state
+export const intialState: ProjectsState = {
+  projects: initialProjects,
+  selectedProjectedId: null
+};
+
+// 03 - Build the most simplest reducer. Every operation that you do in reduce needs to be immutable.
+export function projectsReducer(
+  state: ProjectsState = intialState,
+  action
+): ProjectsState {
+  switch (action.type) {
+    case 'select':
+      // delegate to standalone functions.This avoids nested logic
+      return {
+        selectedProjectedId: action.payLoad,
+        projects: state.projects
+      };
+    case 'create':
+      // delegate to standalone functions.This avoids nested logic
+      return {
+        projects: createProject(state.projects, action.payLoad),
+        selectedProjectedId: state.selectedProjectedId
+      };
+    case 'update':
+      // delegate to standalone functions.This avoids nested logic
+      return {
+        projects: updateProject(state.projects, action.payLoad),
+        selectedProjectedId: state.selectedProjectedId
+      };
+    case 'delete':
+      // delegate to standalone functions.This avoids nested logic
+      return {
+        projects: deleteProject(state.projects, action.payLoad),
+        selectedProjectedId: state.selectedProjectedId
+      };
+    default:
+      return state;
+  }
+}

@@ -10,6 +10,7 @@ import { CoreDataModule } from '@workshop/core-data';
 import { MaterialModule } from '@workshop/material';
 import { UiLoginModule } from '@workshop/ui-login';
 import { UiToolbarModule } from '@workshop/ui-toolbar';
+import { StateModule } from 'libs/core-data/src/lib/state/state.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     BrowserAnimationsModule,
     CoreDataModule,
+    StateModule,
     HttpClientModule,
     LayoutModule,
     NxModule.forRoot(),
